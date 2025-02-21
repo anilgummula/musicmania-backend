@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 // app.use(cors());
 app.use(
     cors({
-      origin: "http://localhost:5173", // Allow only your frontend
+      origin: ["http://localhost:5173","https://musicmania2050.netlify.app"], // Allow only your frontend
       methods: "GET, POST, PUT, DELETE",
     //   credentials: true, // Allow cookies and authentication headers
     })
