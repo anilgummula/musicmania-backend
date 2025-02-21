@@ -47,7 +47,7 @@ const login = async (req,res)=>{
             .json({message: errMesg,success: false})
         }
         const jwtToken = jwt.sign(
-            {email : user.email, _id : user._id,type : user.type },
+            {email : user.email, _id : user._id },
             process.env.JWT_SECRET,
             { expiresIn: "24h"}
         )
@@ -58,8 +58,6 @@ const login = async (req,res)=>{
             success : true ,
             jwtToken,
             email,
-            username : user.username,
-            type : user.type
         })
         
     }catch(err){
