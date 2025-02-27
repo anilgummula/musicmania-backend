@@ -5,6 +5,7 @@ const path = require('path');
 const { fileURLToPath } = require('url');
 const authrouter = require('./routes/authrouter.js');
 const songrouter = require('./routes/song.js')
+const profilerouter = require('./routes/profilerouter.js')
 
 require('dotenv').config();
 require('./models/db.js'); // Initialize database connection
@@ -33,6 +34,7 @@ app.use(
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/auth",authrouter);
 app.use("/songs",songrouter);
+app.use("/profile",profilerouter);
 
 app.get("/",(req,res)=>{
     res.send("hello publicccccc....");
