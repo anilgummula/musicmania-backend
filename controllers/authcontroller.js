@@ -15,10 +15,18 @@ const signup = async (req,res)=>{
         const userModel = new UserModel({username,email,password});
         userModel.password = await bcrypt.hash(password,10);
         await userModel.save();
+
+        const jwtToken = jwt.sign(
+            {username,email },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h"}
+        )
         res.status(201)
         .json({
             message : "Registration Successfull",
-            success : true    
+            success : true,
+            jwtToken,
+            email,
         })
     }catch(err){
         res.status(500)
@@ -46,6 +54,8 @@ const login = async (req,res)=>{
             return res.status(403)
             .json({message: errMesg,success: false})
         }
+        const username = user.username;
+
         const jwtToken = jwt.sign(
             {email : user.email, _id : user._id },
             process.env.JWT_SECRET,
@@ -58,6 +68,7 @@ const login = async (req,res)=>{
             success : true ,
             jwtToken,
             email,
+            username : username
         })
         
     }catch(err){
